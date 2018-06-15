@@ -8,7 +8,7 @@ read.IISLogs <- function(logPath, logFilePattern = "u_ex*.log") {
   #   dataframe with the combined log file data
  
 
-  listOfLogFiles = list.files(path=logPath, pattern=logFilePattern)
+  listOfLogFiles <- list.files(path=logPath, pattern=logFilePattern)
   
 
   for (i in 1:length(listOfLogFiles)) {
