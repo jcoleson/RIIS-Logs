@@ -1,6 +1,6 @@
 Package: RIISLogs
 Title: Analyze IIS Log files using R 
-Version: 0.1
+Version: 0.2
 Authors@R: person("Jared", "Coleson", email = "jcoleson+riis@gmail.com",
                   role = c("aut", "cre"))
 Description: Tools to read, parse, and analyze IIS log files

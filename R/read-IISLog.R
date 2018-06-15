@@ -1,10 +1,11 @@
-read.IISLog <- function(filePath){
+read.IISLog <- function(filePath, tz="America/Chicago") {
   # Reads the contents of an IIS logs file and returns a dataframe.
   # Args:
   #   filePath: full file path to the IIS log file
-  #
+  #   tz: Name of your local time zone if you want to convert time to local
+  # 
   # Returns:
-  #   dataframe with the appropriate 
+  #   dataframe with the log file data 
   
   # read just the 3rd line to determine the column names
   columnNames = read.table(filePath, header = FALSE, sep = " ", skip = 3, nrows = 1, comment.char = "")
@@ -16,15 +17,15 @@ read.IISLog <- function(filePath){
   iisLogFile = read.csv(filePath, header = FALSE,sep=' ',comment.char="#",blank.lines.skip=TRUE, quote = "")
   colnames(iisLogFile) = gsub("-","_",unlist(columnNames[1,])) #replace - with _ in column names
   
-  # create datetime column that combines date and time and swithc UTC to local (central) time
-  iisLogFile$datetime = as.POSIXct(paste(iisLogFile$date,iisLogFile$time, sep=" "), tz="UTC") 
+  # create local_datetime column that combines date and time and swithc UTC to local (central) time
+  iisLogFile$local_datetime = as.POSIXct(paste(iisLogFile$date,iisLogFile$time, sep=" "), tz="UTC") 
   iisLogFile$date=as.Date(iisLogFile$date)
-  attributes(iisLogFile$datetime)$tzone = "America/Chicago" 
+  attributes(iisLogFile$local_datetime)$tzone =  tz
   
   if ("time_taken" %in% colnames(iisLogFile)) {
     iisLogFile$time_taken_s <-  iisLogFile$"time_taken" / 1000
-    iisLogFile$datetimeStarted <- iisLogFile$datetime - iisLogFile$time_taken_s
-    iisLogFile$datetimeEnded <- iisLogFile$datetime
+    iisLogFile$datetimeStarted <- iisLogFile$local_datetime - iisLogFile$time_taken_s
+    iisLogFile$datetimeEnded <- iisLogFile$local_datetime
   }
   
   if ("sc_bytes" %in% colnames(iisLogFile)) {
