@@ -20,7 +20,7 @@ read.IISLog <- function(filePath, tz="America/Chicago") {
   colnames(iisLogFile) = gsub(")","_",unlist(columnNames[1,])) #replace (-)) with _ in column names
   
   # create local_datetime column that combines date and time and swithc UTC to local (central) time
-  iisLogFile$local_datetime = as.POSIXct(paste(iisLogFile$date,iisLogFile$time, sep=" "), tz="UTC") 
+  iisLogFile$local_datetime <- as.POSIXct(paste(iisLogFile$date,iisLogFile$time, sep=" "), tz="UTC") 
   iisLogFile$date=as.Date(iisLogFile$date)
   attributes(iisLogFile$local_datetime)$tzone =  tz
   
