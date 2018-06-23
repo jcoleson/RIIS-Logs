@@ -1,15 +1,14 @@
 IIS.GroupBy.Referer <- function(iisLogData) {
-  # Group data by URI with a count of that URI's frequency 
+  # Group data by referer URI with a count of that URI's frequency 
   # Args:
   #   iisLogData: dataframe with iis log data
   # 
   # Returns:
-  #   dataframe that is a subset of iisLogData without urlContainsVector
+  #   dataframe with Referer and Freq of the Referer. 
   
-  iisLogDataGrouped = as.data.frame(table(iisLogData$cs_referer_))
-  names(iisLogDataGrouped) = c('Referer','Freq')
+  iisLogDataGrouped <- as.data.frame(table(iisLogData$cs_Referer_))
   
-  iisLogDataGrouped = subset(iisLogDataGrouped, Freq > 0)
+  iisLogDataGrouped <- Utilities.ApplyGroupByStandards(iisLogDataGrouped, 'Referer')
   
   return(iisLogDataGrouped)
 }

@@ -6,10 +6,9 @@ IIS.GroupBy.URI <- function(iisLogData) {
   # Returns:
   #   dataframe that is a subset of iisLogData without urlContainsVector
   
-  iisLogDataGrouped = as.data.frame(table(iisLogData$cs_uri_stem))
-  names(iisLogDataGrouped) = c('URI','Freq')
+  iisLogDataGrouped <- as.data.frame(table(iisLogData$cs_uri_stem))
   
-  iisLogDataGrouped = subset(iisLogDataGrouped, Freq > 0)
+  iisLogDataGrouped <- Utilities.ApplyGroupByStandards(iisLogDataGrouped, 'URI')
   
   return(iisLogDataGrouped)
 }
