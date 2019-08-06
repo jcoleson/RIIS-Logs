@@ -5,5 +5,5 @@ Authors@R: person("Jared", "Coleson", email = "jcoleson+riis@gmail.com",
                   role = c("aut", "cre"))
 Description: Tools to read, parse, and analyze IIS web server log files.
 Depends: R (>= 3.1.0)
-License: GNU General Public License v3.0
+License: file LICENSE
 LazyData: true
